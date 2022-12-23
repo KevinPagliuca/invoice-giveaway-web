@@ -29,7 +29,7 @@ export const Footer = () => {
     <S.FooterContainer>
       <S.FooterContent>
         <S.FooterLeftSide>
-          <Logo size="large" white />
+          <Logo size="large" whiteText />
           <S.FooterLinksContainer>
             {footerLinks.map((link) => (
               <S.FooterLink key={link.label} href={link.href}>

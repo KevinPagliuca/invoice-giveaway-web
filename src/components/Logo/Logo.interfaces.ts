@@ -2,7 +2,7 @@ export type LogoSizes = 'small' | 'medium' | 'large';
 
 export interface ILogoProps {
   size?: LogoSizes;
-  white?: boolean;
+  whiteText?: boolean;
 }
 
 export const LogoImageSizes = {
@@ -17,7 +17,7 @@ export const LogoTitleSizes = {
   large: '2.5rem',
 };
 
-export type LogoContainerAttributes = {
-  white?: boolean;
+export type LogoTextAttributes = {
   size: LogoSizes;
+  whiteText?: boolean;
 };

@@ -6,9 +6,9 @@ import { Stepper } from 'components/Stepper';
 import { type StepsType } from 'components/Stepper/Stepper.interfaces';
 import { RegisterFormSchema, type RegisterFormData } from 'shared/RegisterForm';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Background } from 'contents/CommonLoginRegister';
 
 import * as S from './Register.styles';
-import { RegisterBackground } from './Background';
 import { StepForms } from './StepForms';
 import { type RegisterStepsKeys } from './Register.interfaces';
 
@@ -42,7 +42,12 @@ export const RegisterContent = () => {
   return (
     <FormProvider {...methods}>
       <S.RegisterContainer>
-        <RegisterBackground>
+        <Background
+          backlink={{ href: '/login', label: 'Login' }}
+          heroConfig={{ path: '/register.svg', alt: 'Register Illustration' }}
+          title="Faça seu cadastro para começar a concorrer !"
+          reverse
+        >
           <S.RegisterContent>
             <S.RegisterTitle>Cadastro</S.RegisterTitle>
             <Stepper
@@ -66,7 +71,7 @@ export const RegisterContent = () => {
               Já tenho uma conta!<Link href="/login">Fazer Login</Link>
             </S.SignUpText>
           </S.RegisterContent>
-        </RegisterBackground>
+        </Background>
       </S.RegisterContainer>
     </FormProvider>
   );

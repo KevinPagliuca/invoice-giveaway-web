@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
 import { generateUnderlineHoverAnimation } from 'styles/animations';
@@ -11,22 +9,6 @@ export const RegisterContainer = styled.div`
     background: ${theme.colors.white};
     flex: 1;
     width: 100%;
-  `}
-`;
-
-export const BackLink = styled(Link)`
-  ${({ theme }) => css`
-    display: flex;
-    align-items: center;
-    gap: ${theme.spacings.sm};
-    color: ${theme.colors.headline};
-    font-size: ${theme.fonts.primary};
-    font-weight: 700;
-    transition: ${theme.transitions.default};
-
-    &:hover {
-      color: ${theme.colors.primary};
-    }
   `}
 `;
 

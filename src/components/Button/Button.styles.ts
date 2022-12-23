@@ -20,6 +20,7 @@ export const Button = styled.button<ButtonAttributes>`
     outline: 0;
     transition: ${theme.transitions.default};
     flex: ${fullWidth ? '1' : '0'};
+    width: ${fullWidth ? '100%' : 'auto'};
 
     &:disabled {
       opacity: 0.5;

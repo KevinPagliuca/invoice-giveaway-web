@@ -9,6 +9,9 @@ export const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     flex: 1;
+    position: sticky;
+    top: 0;
+
     box-shadow: ${theme.shadows.custom({
       color: theme.colors.primary,
       type: 'grounded',

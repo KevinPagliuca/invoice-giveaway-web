@@ -6,14 +6,14 @@ import { Input } from 'components/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { type LoginFormData, LoginFormSchema } from 'shared/LoginForm';
 import { Button } from 'components/Button';
+import { Background } from 'contents/CommonLoginRegister';
 
 import * as S from './Login.styles';
-import { LoginBackground } from './Background';
 
 export const LoginContent = () => {
   const {
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
   } = useForm<LoginFormData>({
     shouldFocusError: true,
@@ -26,9 +26,15 @@ export const LoginContent = () => {
     []
   );
 
+  const hasErrors = errors && Object.keys(errors).length > 0;
+
   return (
     <S.LoginContainer>
-      <LoginBackground>
+      <Background
+        backlink={{ href: '/', label: 'Home' }}
+        heroConfig={{ path: '/login.svg', alt: 'Login Illustration' }}
+        title="Bem-vindo de volta !"
+      >
         <S.LoginContent>
           <S.LoginTitle>Fazer login</S.LoginTitle>
           <S.LoginForm onSubmit={onSubmit}>
@@ -36,13 +42,7 @@ export const LoginContent = () => {
               name="cpf"
               control={control}
               render={({ field }) => (
-                <Input
-                  {...field}
-                  name="cpf"
-                  label="CPF"
-                  mask="999.999.999-99"
-                  error={errors['cpf']}
-                />
+                <Input label="CPF" mask="999.999.999-99" error={errors?.cpf} {...field} />
               )}
             />
             <Controller
@@ -50,22 +50,23 @@ export const LoginContent = () => {
               control={control}
               render={({ field }) => (
                 <Input
-                  {...field}
-                  name="password"
                   label="Senha"
                   type="password"
-                  error={errors['password']}
+                  error={errors?.password}
                   withShowPassword
+                  {...field}
                 />
               )}
             />
-            <Button type="submit">Enviar</Button>
+            <Button type="submit" disabled={hasErrors || isSubmitting}>
+              Entrar
+            </Button>
           </S.LoginForm>
           <S.SignUpText>
             Não tem uma conta ainda ?<Link href="/cadastro"> Cadastre-se</Link>
           </S.SignUpText>
         </S.LoginContent>
-      </LoginBackground>
+      </Background>
     </S.LoginContainer>
   );
 };

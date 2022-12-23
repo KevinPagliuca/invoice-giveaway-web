@@ -16,4 +16,5 @@ export const WrapperContent = styled.div`
   margin: 0 auto;
   width: 100%;
   max-width: ${({ theme }) => theme.sizes.pageMaxWidth};
+  position: relative;
 `;

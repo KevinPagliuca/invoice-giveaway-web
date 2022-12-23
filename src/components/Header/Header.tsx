@@ -9,22 +9,35 @@ const headerLinks = [
   {
     label: 'Home',
     href: '/',
+    isPrivate: false,
   },
   {
-    label: 'Sobre',
+    label: 'Dashboard',
+    href: '/dashboard',
+    isPrivate: true,
+  },
+  {
+    label: 'Sobre nós',
     href: '/sobre-nos',
+    isPrivate: false,
+    onlyUnauthenticated: true,
   },
   {
     label: 'Ranking',
     href: '/ranking',
+    isPrivate: true,
   },
+
   {
     label: 'Login',
     href: '/login',
+    isPrivate: false,
+    onlyUnauthenticated: true,
   },
 ];
 
 export const Header = () => {
+  const isAuth = false;
   const [hoveredLink, setHoveredLink] = useState({ offset: 0, width: 0 });
 
   const handleMouseEnter = useCallback(
@@ -46,13 +59,16 @@ export const Header = () => {
       <S.HeaderContent>
         <Logo size="small" />
         <S.HeaderNavWrapper offset={hoveredLink.offset} width={hoveredLink.width}>
-          {headerLinks.map((link) => (
-            <ActiveLink activeClassName="active" key={link.label} href={link.href}>
-              <S.HeaderLink onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                {link.label}
-              </S.HeaderLink>
-            </ActiveLink>
-          ))}
+          {headerLinks.map((link) => {
+            if ((link.isPrivate && !isAuth) || (link.onlyUnauthenticated && isAuth)) return null;
+            return (
+              <ActiveLink activeClassName="active" key={link.label} href={link.href}>
+                <S.HeaderLink onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                  {link.label}
+                </S.HeaderLink>
+              </ActiveLink>
+            );
+          })}
         </S.HeaderNavWrapper>
       </S.HeaderContent>
     </S.HeaderContainer>

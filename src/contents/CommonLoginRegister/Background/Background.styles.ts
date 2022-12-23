@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { generateUnderlineHoverAnimation } from 'styles/animations';
 
+import { type SidesAttributes } from './Background.interfaces';
+
 export const BackgroundContainer = styled.div`
   display: grid;
   flex: 1;
@@ -8,27 +10,34 @@ export const BackgroundContainer = styled.div`
   overflow: hidden;
 `;
 
-export const RightContainer = styled.div`
-  ${({ theme }) => css`
+export const TitleContainer = styled.div<SidesAttributes>`
+  ${({ theme, isReverse }) => css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
     padding: ${theme.spacings.xxl};
     background: ${theme.colors.primary};
     color: ${theme.colors.white};
     position: fixed;
-    right: 0;
+    left: 0;
     top: 0;
     bottom: 0;
     width: 50%;
     z-index: 1;
 
+    ${isReverse &&
+    css`
+      align-items: flex-end;
+      left: unset;
+      right: 0;
+    `}
+
     h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       font-family: ${theme.fonts.secondary};
       max-width: 18rem;
-      text-align: right;
+      text-align: ${isReverse ? 'right' : 'left'};
     }
 
     a {
@@ -36,6 +45,7 @@ export const RightContainer = styled.div`
       font-weight: 700;
       display: flex;
       align-items: center;
+      flex-direction: ${isReverse ? 'row-reverse' : 'row'};
       font-family: ${theme.fonts.secondary};
       gap: ${theme.spacings.sm};
       cursor: pointer;
@@ -50,23 +60,30 @@ export const FloatBox = styled.div`
     align-items: center;
     justify-content: center;
     margin: ${theme.spacings.xxxl} auto;
-    z-index: 2;
+    z-index: 4;
   `}
 `;
 
-export const LeftContainer = styled.div`
-  ${({ theme }) => css`
+export const HeroContainer = styled.div<SidesAttributes>`
+  ${({ theme, isReverse }) => css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background: ${theme.colors.white};
     position: fixed;
-    left: 0;
+    right: 0;
     top: 0;
     bottom: 0;
     width: 50%;
     z-index: 1;
+
+    ${isReverse &&
+    css`
+      align-items: flex-end;
+      right: unset;
+      left: 0;
+    `}
 
     img {
       filter: drop-shadow(
@@ -92,7 +109,6 @@ export const CopyrightText = styled.span`
       transition: ${theme.transitions.default};
       font-weight: 700;
       position: relative;
-
       ${generateUnderlineHoverAnimation(theme.colors.primary)};
     }
   `}
