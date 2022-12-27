@@ -17,7 +17,7 @@ export const LoginContent = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: ${theme.spacings.xxl};
+    padding: ${theme.spacings.xl} ${theme.spacings.xxl};
     box-shadow: ${theme.shadows.spreded};
     backdrop-filter: blur(4px);
     background-color: ${rgba(theme.colors.white, 0.85)};
@@ -31,7 +31,7 @@ export const LoginTitle = styled.h4`
     font-size: 2rem;
     font-family: ${theme.fonts.secondary};
     color: ${theme.colors.headline};
-    margin-bottom: ${theme.spacings.xxl};
+    margin-bottom: ${theme.spacings.md};
   `}
 `;
 
@@ -40,7 +40,7 @@ export const LoginForm = styled.form`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: ${theme.spacings.lg};
+    gap: ${theme.spacings.md};
     width: 100%;
   `}
 `;
@@ -51,7 +51,8 @@ export const SignUpText = styled.span`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top: ${theme.spacings.xxl};
+    margin-top: ${theme.spacings.md};
+    color: ${theme.colors.paragraph};
 
     a {
       color: ${theme.colors.primary};

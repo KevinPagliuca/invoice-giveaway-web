@@ -1,8 +1,7 @@
-import { type StepsType } from 'components/Stepper/Stepper.interfaces';
+import { type StepsType } from 'components/Stepper';
+import { type RegisterStepsKeys } from 'constants/global';
 
-import { type RegisterStepsKeys } from '../Register.interfaces';
-
-export interface IRegisterStepFormsProps {
+export interface IStepFormsProps {
   steps: StepsType<number, RegisterStepsKeys>[];
   currentStep: number;
   activeStep: number;
@@ -10,7 +9,7 @@ export interface IRegisterStepFormsProps {
   onChangeActiveStep: (step: number) => void;
 }
 
-export interface IRegisterFormComponentProps {
+export interface IFormComponentProps {
   handleNextStep: (isSave: boolean) => void;
   handlePreviousStep: () => void;
   showBackButton: boolean;

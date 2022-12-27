@@ -1,12 +1,13 @@
 import { type GetServerSidePropsContext } from 'next';
 
-import { type IAuthResponse } from 'interfaces/users';
+import { type IUser, type IAuthResponse } from 'interfaces/users';
 import { api, removeAuth, setAuth, setupAPI } from 'services/api';
 import { type LoginFormData } from 'shared/LoginForm';
 import { type RegisterFormData } from 'shared/RegisterForm';
 import { type AxiosErrorType } from 'interfaces/axios';
 import { queryClient } from 'services/react-query';
 import { REACT_QUERY_KEYS } from 'constants/react-query';
+import { type EditProfileFormData } from 'shared/UpdateProfileForm';
 
 async function getMe(ctx?: GetServerSidePropsContext) {
   try {
@@ -46,6 +47,7 @@ async function register(user: RegisterFormData) {
     const { data } = await api.post<IAuthResponse>('/user/register', userFormatted);
     setAuth(data.token);
     queryClient.fetchQuery([REACT_QUERY_KEYS.GET_ME]);
+
     return data;
   } catch (err) {
     const error = err as AxiosErrorType;
@@ -60,9 +62,28 @@ async function logout(ctx?: GetServerSidePropsContext) {
   removeAuth(ctx);
 }
 
+async function update(user: EditProfileFormData) {
+  try {
+    const userFormatted = {
+      ...user.personal,
+      ...user.contact,
+      ...user.address,
+    };
+    const { data } = await api.patch<IUser>('/user/update', userFormatted);
+    queryClient.invalidateQueries([REACT_QUERY_KEYS.GET_ME]);
+    return data;
+  } catch (err) {
+    const error = err as AxiosErrorType;
+    const errorMessage =
+      error.response?.data?.message || 'Ocorreu um erro inesperado, tente novamente mais tarde.';
+    throw new Error(errorMessage);
+  }
+}
+
 export const usersService = {
   getMe,
   auth,
-  logout,
   register,
+  logout,
+  update,
 };

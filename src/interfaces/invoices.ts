@@ -11,11 +11,11 @@ export interface IInvoice {
   number: string;
   cnpj: string;
   totalValue: number;
-  luckyNumber: string;
+  luckyCode: string;
   status: InvoiceStatusEnum;
   userId: string;
-  givewayId?: string;
-  giveway?: {
+  giveawayId?: string;
+  giveaway?: {
     reference: string;
     endDate: string;
     startDate: string;

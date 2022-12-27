@@ -1,3 +1,4 @@
+import { breakpoints } from 'constants/breakpoints';
 import styled, { css } from 'styled-components';
 import { generateUnderlineHoverAnimation } from 'styles/animations';
 
@@ -33,14 +34,14 @@ export const TitleContainer = styled.div<SidesAttributes>`
       right: 0;
     `}
 
-    h1 {
+    > h1 {
       font-size: 2rem;
       font-family: ${theme.fonts.secondary};
       max-width: 18rem;
       text-align: ${isReverse ? 'right' : 'left'};
     }
 
-    a {
+    > a {
       font-size: 1.5rem;
       font-weight: 700;
       display: flex;
@@ -49,6 +50,21 @@ export const TitleContainer = styled.div<SidesAttributes>`
       font-family: ${theme.fonts.secondary};
       gap: ${theme.spacings.sm};
       cursor: pointer;
+    }
+
+    @media (max-width: ${breakpoints.smallDesktop}) {
+      width: 100%;
+      position: relative;
+      left: unset;
+      right: unset;
+      top: unset;
+      bottom: unset;
+      align-items: center;
+      gap: ${theme.spacings.xl};
+
+      h1 {
+        max-width: 100%;
+      }
     }
   `}
 `;
@@ -61,7 +77,22 @@ export const FloatBox = styled.div`
     justify-content: center;
     margin: ${theme.spacings.xxxl} auto;
     z-index: 4;
+
+    @media (max-width: ${breakpoints.smallDesktop}) {
+      display: none;
+    }
   `}
+`;
+export const FloatBoxMobile = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+
+  @media (min-width: ${breakpoints.smallDesktop}) {
+    display: none;
+  }
 `;
 
 export const HeroContainer = styled.div<SidesAttributes>`
@@ -93,14 +124,19 @@ export const HeroContainer = styled.div<SidesAttributes>`
         })}
       );
     }
+
+    @media (max-width: ${breakpoints.smallDesktop}) {
+      display: none;
+    }
   `}
 `;
 
-export const CopyrightText = styled.span`
-  ${({ theme }) => css`
+export const CopyrightText = styled.span<SidesAttributes>`
+  ${({ theme, isReverse }) => css`
     font-size: 1rem;
     margin-top: auto;
-    margin-right: auto;
+    margin-right: ${!isReverse ? 'unset' : 'auto'};
+    margin-left: ${!isReverse ? 'auto' : 'unset'};
     color: ${theme.colors.headline};
     padding: ${theme.spacings.xxl};
 

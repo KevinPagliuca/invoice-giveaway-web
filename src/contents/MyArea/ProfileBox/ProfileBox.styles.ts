@@ -1,4 +1,3 @@
-import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
 
 export const EditProfileButton = styled.button`

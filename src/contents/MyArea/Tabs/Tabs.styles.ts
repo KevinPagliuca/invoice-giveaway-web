@@ -28,7 +28,6 @@ export const TabsHeader = styled.header`
       width: 100%;
       height: 1px;
       background-color: ${theme.colors.primary};
-      box-shadow: ${theme.shadows.grounded};
     }
   `}
 `;

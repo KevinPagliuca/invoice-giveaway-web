@@ -1,10 +1,10 @@
 import { type AxiosErrorType } from 'interfaces/axios';
-import { type IGiveway } from 'interfaces/giveway';
+import { type IGiveaway } from 'interfaces/giveaway';
 import { api } from 'services/api';
 
 export async function getActive() {
   try {
-    const response = await api.get<IGiveway>('/giveaway/active');
+    const response = await api.get<IGiveaway>('/giveaway/active');
     return response.data;
   } catch (err) {
     const error = err as AxiosErrorType;

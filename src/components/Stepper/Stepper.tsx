@@ -8,10 +8,13 @@ export const Stepper = ({
   steps,
   activeStep,
   disableChangeStep = false,
+  enableNavigation = false,
   onChangeActiveStep,
 }: IStepperProps) => {
   const handleChangeStep = useCallback(
     (step: number) => {
+      if (enableNavigation) return onChangeActiveStep(step);
+
       if (step > currentStep) return;
       onChangeActiveStep(step);
     },
@@ -22,9 +25,12 @@ export const Stepper = ({
     <S.StepperContainer>
       {steps.map((step) => {
         const isCurrentStep = step.number === currentStep;
-        const isCompleted = step.number < currentStep;
+        const isCompleted = enableNavigation || step.number < currentStep;
         const isActive = step.number === activeStep;
-        const isDisabled = step.number > currentStep || (disableChangeStep && !isActive);
+
+        const isDisabled = enableNavigation
+          ? false
+          : step.number > currentStep || (disableChangeStep && !isActive);
 
         return (
           <S.StepperItem

@@ -35,8 +35,13 @@ export function withSSRAuth<P extends Record<string, unknown>>(fn?: GetServerSid
         dehydratedState: dehydrate(queryClient),
       };
 
-      if (fn) return await fn(ctx, SSRProps);
+      const hasMeQuery = SSRProps.dehydratedState.queries.find((query) =>
+        query.queryKey.includes(REACT_QUERY_KEYS.GET_ME)
+      );
 
+      if (!hasMeQuery) queryClient.invalidateQueries();
+
+      if (fn) return await fn(ctx, SSRProps);
       return {
         props: SSRProps,
       };

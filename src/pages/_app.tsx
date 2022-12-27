@@ -11,6 +11,7 @@ import { theme } from 'styles/theme';
 import { GlobalStyles } from 'styles/globals';
 import { AuthProvider } from 'contexts/Auth';
 import { queryClient } from 'services/react-query';
+import { LoaderProvider } from 'contexts/Loader';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,11 +19,13 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <ReactQueryDevtools />
       <Hydrate state={pageProps?.dehydratedState}>
         <ThemeProvider theme={theme}>
-          <AuthProvider>
-            <GlobalStyles />
-            <Component {...pageProps} />
-            <ToastContainer theme="dark" />
-          </AuthProvider>
+          <LoaderProvider>
+            <AuthProvider>
+              <GlobalStyles />
+              <Component {...pageProps} />
+              <ToastContainer theme="dark" />
+            </AuthProvider>
+          </LoaderProvider>
         </ThemeProvider>
       </Hydrate>
     </QueryClientProvider>

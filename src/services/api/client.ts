@@ -14,6 +14,16 @@ export function setupAPI(ctx?: GetServerSidePropsContext) {
   });
 
   if (token) api.defaults.headers.authorization = `Bearer ${token}`;
+
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response.status === 401 && error.response.data.type === 'auth_token')
+        removeAuth(ctx);
+      return Promise.reject(error);
+    }
+  );
+
   return api;
 }
 

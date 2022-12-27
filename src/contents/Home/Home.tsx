@@ -15,4 +15,4 @@ const HomeContentBase = () => {
   );
 };
 
-export const HomeContent = withLayout(HomeContentBase, 'Página inicial - Sorteio de NF');
+export const HomeContent = withLayout(HomeContentBase, 'Página inicial');

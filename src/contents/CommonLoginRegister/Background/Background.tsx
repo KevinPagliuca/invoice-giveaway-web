@@ -21,7 +21,7 @@ export const Background = ({
     <S.BackgroundContainer>
       <S.HeroContainer isReverse={!!reverse}>
         <Image alt={heroConfig.alt} src={heroConfig.path} fill />
-        <S.CopyrightText>
+        <S.CopyrightText isReverse={!!reverse}>
           Feito por{' '}
           <Link href="https://github.com/kevinpagliuca" target="_blank">
             Kevin Pagliuca
@@ -29,10 +29,11 @@ export const Background = ({
         </S.CopyrightText>
       </S.HeroContainer>
       <S.FloatBox>{children}</S.FloatBox>
-
       <S.TitleContainer isReverse={!!reverse}>
         <Logo whiteText />
         <h1>{title}</h1>
+
+        <S.FloatBoxMobile>{children}</S.FloatBoxMobile>
         <Link href={backlink.href}>
           <Icon size={32} />
           {backlink.label}

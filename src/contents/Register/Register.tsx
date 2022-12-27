@@ -3,21 +3,13 @@ import Link from 'next/link';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Stepper } from 'components/Stepper';
-import { type StepsType } from 'components/Stepper/Stepper.interfaces';
 import { RegisterFormSchema, type RegisterFormData } from 'shared/RegisterForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Background } from 'contents/CommonLoginRegister';
+import { REGISTER_STEPS } from 'constants/global';
 
 import * as S from './Register.styles';
 import { StepForms } from './StepForms';
-import { type RegisterStepsKeys } from './Register.interfaces';
-
-const REGISTER_STEPS: StepsType<number, RegisterStepsKeys>[] = [
-  { number: 1, label: 'Dados Pessoais', key: 'personal' },
-  { number: 2, label: 'Contato', key: 'contact' },
-  { number: 3, label: 'Endereço', key: 'address' },
-  { number: 4, label: 'Senha', key: 'password' },
-];
 
 export const RegisterContent = () => {
   const methods = useForm<RegisterFormData>({
@@ -43,9 +35,9 @@ export const RegisterContent = () => {
     <FormProvider {...methods}>
       <S.RegisterContainer>
         <Background
-          backlink={{ href: '/login', label: 'Login' }}
+          backlink={{ href: '/login', label: 'Ir para Login' }}
           heroConfig={{ path: '/register.svg', alt: 'Register Illustration' }}
-          title="Faça seu cadastro para começar a concorrer !"
+          title="Faça seu cadastro para começar!"
           reverse
         >
           <S.RegisterContent>

@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 
 import { type IUserLoginCredentials, type IUser } from 'interfaces/users';
 import { type RegisterFormData } from 'shared/RegisterForm';
+import { type EditProfileFormData } from 'shared/UpdateProfileForm';
 
 export interface IAuthContextData {
   user?: IUser;
@@ -9,6 +10,7 @@ export interface IAuthContextData {
   handleRegister: (data: RegisterFormData) => void;
   handleLogin: (credentials: IUserLoginCredentials) => Promise<void>;
   handleLogout: () => void;
+  handleUpdate: (data: EditProfileFormData) => Promise<void>;
 }
 
 export interface IAuthProviderProps {

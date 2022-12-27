@@ -5,8 +5,8 @@ export interface IUser {
   email: string;
   birthDate: string;
   rg?: string | null;
-  cellphone: string;
-  cellphone_secondary?: string | null;
+  mainPhone: string;
+  secondaryPhone?: string | null;
   zipCode: string;
   street: string;
   district: string;

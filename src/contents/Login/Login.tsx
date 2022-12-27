@@ -35,7 +35,7 @@ export const LoginContent = () => {
   return (
     <S.LoginContainer>
       <Background
-        backlink={{ href: '/', label: 'Home' }}
+        backlink={{ href: '/', label: 'Ir para Home' }}
         heroConfig={{ path: '/login.svg', alt: 'Login Illustration' }}
         title="Bem-vindo de volta !"
       >

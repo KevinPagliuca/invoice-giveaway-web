@@ -1,6 +1,7 @@
+import { getInvoiceStatusColor } from 'components/InvoiceCard/InvoiceCard.styles';
+import { type InvoiceStatusEnum } from 'interfaces/invoices';
 import styled, { css } from 'styled-components';
-
-import { type HistoryItemGridAttributes } from './History.interfaces';
+import { generateUnderlineHoverAnimation } from 'styles/animations';
 
 export const HistoryContainer = styled.div`
   display: flex;
@@ -10,15 +11,14 @@ export const HistoryContainer = styled.div`
 
 export const NextGiveaway = styled.h1`
   ${({ theme }) => css`
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 500;
-    color: ${theme.colors.primary};
+    color: ${theme.colors.headline};
     margin-bottom: ${theme.spacings.md};
-    font-family: ${theme.fonts.secondary};
 
     span {
       font-weight: 700;
-      color: ${theme.colors.secondary};
+      color: ${theme.colors.primary};
     }
   `}
 `;
@@ -27,7 +27,7 @@ export const WithoutNextGiveaway = styled.h1`
   ${({ theme }) => css`
     font-size: 1.25rem;
     font-weight: 500;
-    color: ${theme.colors.primary};
+    color: ${theme.colors.headline};
     margin-bottom: ${theme.spacings.md};
     font-family: ${theme.fonts.primary};
     span {
@@ -41,139 +41,78 @@ export const HistoryContent = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
-    gap: ${theme.spacings.md};
+    gap: ${theme.spacings.lg};
+    padding-top: ${theme.spacings.md};
+    width: 100%;
+    border-top: 1px solid ${theme.colors.primary};
   `}
 `;
 
-export const HistoryItem = styled.div`
+export const HistoryContentTitle = styled.h2`
+  ${({ theme }) => css`
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 500;
+    color: ${theme.colors.paragraph};
+  `}
+`;
+
+export const HistoryContentSubtitle = styled.p`
   ${({ theme }) => css`
     display: flex;
     align-items: center;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: ${theme.spacings.md};
-
-    box-shadow: ${theme.shadows.grounded};
-    padding: ${theme.spacings.md} ${theme.spacings.lg};
-    border: 2px solid transparent;
-    border-radius: 8px;
-
-    height: 100%;
-    transition: ${theme.transitions.default};
-    cursor: pointer;
-
-    &:hover {
-      border-color: ${theme.colors.primary};
-    }
-  `}
-`;
-
-export const HistoryItemWrapper = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: ${theme.spacings.xs};
-    width: 100px;
-
-    &:not(:first-child):not(:last-child) {
-      padding: 0 ${theme.spacings.md};
-    }
-  `}
-`;
-
-export const HistoryItemTitle = styled.h3<HistoryItemGridAttributes>`
-  ${({ theme, gridArea }) => css`
     font-size: 1rem;
     font-weight: 700;
-    color: ${theme.colors.headline};
-    grid-area: ${gridArea};
-    margin-bottom: ${theme.spacings.xs};
-  `}
-`;
-
-export const HistoryItemValue = styled.span<HistoryItemGridAttributes>`
-  ${({ theme, gridArea }) => css`
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: ${theme.colors.gray};
-    grid-area: ${gridArea};
-
-    strong {
-      color: ${theme.colors.primary};
-    }
-  `}
-`;
-
-export const HistoryItemStatus = styled.span<HistoryItemGridAttributes>`
-  ${({ theme, gridArea }) => css`
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: ${theme.colors.gray};
-    grid-area: ${gridArea};
-
-    strong {
-      color: ${theme.colors.primary};
-    }
-  `}
-`;
-
-export const Divider = styled.div`
-  ${({ theme }) => css`
-    width: 2px;
-    background-color: ${theme.colors.secondary};
-    margin: 0 ${theme.spacings.md};
-  `}
-`;
-
-export const Item = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: ${theme.spacings.md};
-
-    box-shadow: ${theme.shadows.grounded};
-    padding: ${theme.spacings.md} ${theme.spacings.lg};
-    border: 2px solid transparent;
-    border-radius: 8px;
-
-    height: 100%;
-    transition: ${theme.transitions.default};
-    cursor: pointer;
-
-    &:hover {
-      border-color: ${theme.colors.primary};
-    }
-  `}
-`;
-
-export const ItemRow = styled.div`
-  ${({ theme }) => css`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    color: ${theme.colors.paragraph};
     gap: ${theme.spacings.sm};
+
+    > span {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: ${theme.colors.paragraph};
+      gap: ${theme.spacings.sm};
+    }
+  `};
+`;
+
+export const LegendItem = styled.span<{ status: InvoiceStatusEnum }>`
+  ${({ theme, status }) => css`
+    display: flex;
+    align-items: center;
+    gap: ${theme.spacings.sm};
+
+    &::before {
+      content: '';
+      display: block;
+      border-radius: 50%;
+      width: 1rem;
+      height: 1rem;
+      ${getInvoiceStatusColor(status)};
+      box-shadow: ${theme.shadows.grounded};
+    }
   `}
 `;
 
-export const ItemColumn = styled.div`
+export const HistoryGrid = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacings.xl};
+  width: 100%;
+`;
+
+export const WithoutInvoices = styled.span`
   ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
+    font-size: 1rem;
+    font-weight: 500;
+    color: ${theme.colors.paragraph};
 
-    strong {
-      font-size: 1rem;
-      font-weight: 700;
-      color: ${theme.colors.headline};
-      margin-bottom: ${theme.spacings.xs};
-    }
-
-    span {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: ${theme.colors.gray};
-
-      strong {
-        color: ${theme.colors.primary};
-      }
+    a {
+      color: ${theme.colors.primary};
+      ${generateUnderlineHoverAnimation(theme.colors.primary)}
     }
   `}
 `;

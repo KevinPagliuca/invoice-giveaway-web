@@ -18,4 +18,4 @@ const MyAreaBase = () => {
   );
 };
 
-export const MyAreaContent = withLayout(MyAreaBase);
+export const MyAreaContent = withLayout(MyAreaBase, 'Minha área');

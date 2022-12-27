@@ -10,6 +10,7 @@ export interface IStepperProps {
   onChangeActiveStep: (step: number) => void;
   activeStep: number;
   disableChangeStep?: boolean;
+  enableNavigation?: boolean;
 }
 
 export type StepperItemAttributes = {

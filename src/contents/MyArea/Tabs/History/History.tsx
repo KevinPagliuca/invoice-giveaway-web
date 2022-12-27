@@ -1,13 +1,17 @@
 import React, { useMemo } from 'react';
+import Link from 'next/link';
 
 import { useInvoices } from 'hooks/invoices';
-import { formatCurrency, formatDate, formatISODate, formatToNow } from 'helpers/formatters';
+import { formatToNow } from 'helpers/formatters';
 import { useActiveGiveaway } from 'hooks/giveway';
+import { InvoiceCard } from 'components/InvoiceCard';
+import { InvoiceStatusEnum } from 'interfaces/invoices';
 
 import * as S from './History.styles';
+import { MY_AREA_TABS } from '../Tabs';
 
 export const History = () => {
-  const { data: invoices } = useInvoices();
+  const { data: invoices, isLoading } = useInvoices();
   const { data: activeGiveaway } = useActiveGiveaway();
 
   const NextGiveawayText = useMemo(() => {
@@ -23,7 +27,7 @@ export const History = () => {
       }
       return (
         <S.NextGiveaway>
-          Próximo sorteio <span>{formatToNow(activeGiveaway.endDate)}.</span>
+          O próximo sorteio será <span>{formatToNow(activeGiveaway.endDate)}.</span>
         </S.NextGiveaway>
       );
     } else {
@@ -35,30 +39,30 @@ export const History = () => {
     <S.HistoryContainer>
       {NextGiveawayText}
       <S.HistoryContent>
-        {invoices?.map((item) => (
-          <S.Item key={item.id}>
-            <S.ItemRow>
-              <S.ItemColumn>
-                <strong>Número da NF</strong>
-                <span> {item.number}</span>
-              </S.ItemColumn>
-              <S.ItemColumn>
-                <strong>Data da NF</strong>
-                <span> {formatDate(formatISODate(item.date))}</span>
-              </S.ItemColumn>
+        <S.HistoryContentTitle>Seu histórico</S.HistoryContentTitle>
+        <S.HistoryContentSubtitle>
+          Legenda
+          <span>
+            <S.LegendItem status={InvoiceStatusEnum.WINNER}>Ganhou</S.LegendItem>
+            <S.LegendItem status={InvoiceStatusEnum.LOSER}>Não sorteado</S.LegendItem>
+            <S.LegendItem status={InvoiceStatusEnum.PENDING}>Aguardando resultado</S.LegendItem>
+            <S.LegendItem status={InvoiceStatusEnum.WAITING}>Aguardando novo sorteio</S.LegendItem>
+          </span>
+        </S.HistoryContentSubtitle>
 
-              <S.ItemColumn>
-                <strong>Valor da NF</strong>
-                <span> {formatCurrency(item.totalValue)}</span>
-              </S.ItemColumn>
+        <S.HistoryGrid>
+          {invoices?.map((item) => (
+            <InvoiceCard key={item.id} invoice={item} />
+          ))}
+        </S.HistoryGrid>
 
-              <S.ItemColumn>
-                <strong>Cód. da Sorte</strong>
-                <span> {item.luckyNumber}</span>
-              </S.ItemColumn>
-            </S.ItemRow>
-          </S.Item>
-        ))}
+        {invoices?.length === 0 && !isLoading && (
+          <S.WithoutInvoices>
+            Você não tem nenhuma Nota Fiscal cadastrada ainda{' '}
+            <Link href={MY_AREA_TABS.newInvoice.href}>Clique aqui</Link> para cadastrar uma Nota
+            Fiscal.
+          </S.WithoutInvoices>
+        )}
       </S.HistoryContent>
     </S.HistoryContainer>
   );

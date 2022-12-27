@@ -20,7 +20,7 @@ export const RegisterContent = styled.div`
     padding: ${theme.spacings.xxl};
     box-shadow: ${theme.shadows.spreded};
     backdrop-filter: blur(4px);
-    background-color: ${rgba(theme.colors.white, 0.85)};
+    background-color: ${rgba(theme.colors.white, 0.9)};
     border-radius: 25px;
     width: 30rem;
   `}
@@ -52,6 +52,7 @@ export const SignUpText = styled.span`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    color: ${theme.colors.paragraph};
 
     a {
       color: ${theme.colors.primary};

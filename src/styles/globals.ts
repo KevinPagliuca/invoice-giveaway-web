@@ -1,3 +1,4 @@
+import { rgba } from 'polished';
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
@@ -11,6 +12,30 @@ export const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     background-color: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.paragraph};
+
+    &.no-scroll {
+      overflow: hidden !important;
+      overscroll-behavior: contain;
+      position: relative !important;
+      padding-left: 0px;
+      padding-top: 0px;
+      padding-right: 0px;
+      margin-left: 0;
+      margin-top: 0;
+      margin-right: 6px !important;
+    }
+  } 
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: ${({ theme }) => theme.colors.background};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => rgba(theme.colors.primary, 0.85)};
   }
 
   body #__next {
@@ -18,15 +43,15 @@ export const GlobalStyles = createGlobalStyle`
     flex-direction: column;
     min-height: 100vh;
   }
-  
-  button {
-    cursor: pointer;
-  }
 
   body, input, textarea, button {
     font-weight: 400;
     font-size: 1rem;
     font-family: ${({ theme }) => theme.fonts.primary};
+  }
+
+  button {
+    cursor: pointer;
   }
 
   a {

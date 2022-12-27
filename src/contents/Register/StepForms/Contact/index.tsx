@@ -4,11 +4,11 @@ import { Controller, useFormContext } from 'react-hook-form';
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { type RegisterFormData } from 'shared/RegisterForm';
-import { type RegisterStepsKeys } from 'contents/Register/Register.interfaces';
+import { type RegisterStepsKeys } from 'constants/global';
 
 import { CONTACT_FIELDS as fields } from './fields';
 import * as S from '../StepForms.styles';
-import { type IRegisterFormComponentProps } from '../StepForms.interfaces';
+import { type IFormComponentProps } from '../StepForms.interfaces';
 
 const stepKey: RegisterStepsKeys = 'contact';
 
@@ -19,7 +19,7 @@ export const Contact = ({
   showBackButton,
   showFinishButton,
   showSaveButton,
-}: IRegisterFormComponentProps) => {
+}: IFormComponentProps) => {
   const {
     control,
     formState: { errors, isSubmitting },

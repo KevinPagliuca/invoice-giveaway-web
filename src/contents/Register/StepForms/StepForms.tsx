@@ -3,19 +3,16 @@ import { useFormContext } from 'react-hook-form';
 
 import { type RegisterFormData } from 'shared/RegisterForm';
 import { useAuth } from 'contexts/Auth';
+import { type RegisterStepsKeys } from 'constants/global';
 
-import {
-  type IRegisterFormComponentProps,
-  type IRegisterStepFormsProps,
-} from './StepForms.interfaces';
+import { type IFormComponentProps, type IStepFormsProps } from './StepForms.interfaces';
 import { Personal } from './Personal';
-import { type RegisterStepsKeys } from '../Register.interfaces';
 import { Contact } from './Contact';
 import { Address } from './Address';
 import { Password } from './Password';
 import { StepFormContainer } from './StepForms.styles';
 
-const forms: Record<RegisterStepsKeys, (props: IRegisterFormComponentProps) => JSX.Element> = {
+const forms: Record<RegisterStepsKeys, (props: IFormComponentProps) => JSX.Element> = {
   contact: Contact,
   personal: Personal,
   address: Address,
@@ -28,7 +25,7 @@ export const StepForms = ({
   currentStep,
   onChangeActiveStep,
   onChangeCurrentStep,
-}: IRegisterStepFormsProps) => {
+}: IStepFormsProps) => {
   const { handleRegister } = useAuth();
   const activeStepKey = useMemo(() => steps[activeStep - 1].key, [activeStep, steps]);
 
