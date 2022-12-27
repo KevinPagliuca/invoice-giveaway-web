@@ -10,7 +10,9 @@ const sizes = {
   large: '6rem',
 } as const;
 
-export const Avatar = ({ src, name = '', size = 'medium', round, ...rest }: IAvatarProps) => {
+export const Avatar = ({ size = 'medium', round, ...rest }: IAvatarProps) => {
+  const { src, name } = rest as { src?: string; name?: string };
+
   if (src) {
     return (
       <S.AvatarWrapper size={sizes[size]} round={round} name={name}>

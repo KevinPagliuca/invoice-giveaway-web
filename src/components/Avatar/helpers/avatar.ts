@@ -27,9 +27,9 @@ export function getRandomColor(str: string): string {
   return defaultColors[hash % defaultColors.length];
 }
 
-export function getNameInitials(name: string, maxInitials: number) {
+export function getNameInitials(name?: string, maxInitials?: number) {
   return name
-    .split(/\s/)
+    ?.split(/\s/)
     .map((part) => part.substring(0, 1).toUpperCase())
     .filter((v) => !!v)
     .slice(0, maxInitials)

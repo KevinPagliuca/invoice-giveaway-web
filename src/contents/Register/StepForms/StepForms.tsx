@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { type RegisterFormData } from 'shared/RegisterForm';
+import { useAuth } from 'contexts/Auth';
 
 import {
   type IRegisterFormComponentProps,
@@ -28,6 +29,7 @@ export const StepForms = ({
   onChangeActiveStep,
   onChangeCurrentStep,
 }: IRegisterStepFormsProps) => {
+  const { handleRegister } = useAuth();
   const activeStepKey = useMemo(() => steps[activeStep - 1].key, [activeStep, steps]);
 
   const ActiveStepComponent = useMemo(() => {
@@ -56,14 +58,7 @@ export const StepForms = ({
   const hasErrors =
     errors && errors?.[activeStepKey] && Object.keys(errors[activeStepKey]).length > 0;
 
-  const onSubmit = useCallback(
-    handleSubmit(async (data) => {
-      const isValid = await trigger();
-      // eslint-disable-next-line no-console
-      console.log({ data, isValid });
-    }),
-    []
-  );
+  const onSubmit = useCallback(handleSubmit(handleRegister), []);
 
   return (
     <StepFormContainer onSubmit={onSubmit}>

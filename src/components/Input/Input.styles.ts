@@ -1,4 +1,5 @@
 import ReactInputMask from 'react-input-mask';
+import CurrencyInput from 'react-currency-input-field';
 
 import styled, { css } from 'styled-components';
 
@@ -150,6 +151,10 @@ export const InputField = styled.input`
 `;
 
 export const InputFieldMasked = styled(ReactInputMask)`
+  ${InputStyles};
+`;
+
+export const InputFieldCurrency = styled(CurrencyInput)`
   ${InputStyles};
 `;
 

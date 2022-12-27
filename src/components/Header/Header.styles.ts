@@ -11,6 +11,7 @@ export const HeaderContainer = styled.div`
     flex: 1;
     position: sticky;
     top: 0;
+    z-index: 100;
 
     box-shadow: ${theme.shadows.custom({
       color: theme.colors.primary,
@@ -54,8 +55,10 @@ export const HeaderNavWrapper = styled.nav<HeaderNavWrapperAttributes>`
   `}
 `;
 
-export const HeaderLink = styled.span`
+export const HeaderLink = styled.button`
   ${({ theme }) => css`
+    border: 0;
+    background: transparent;
     font-size: 1.25rem;
     z-index: 1;
     font-weight: 700;
@@ -68,12 +71,17 @@ export const HeaderLink = styled.span`
     cursor: pointer;
     transition: ${theme.transitions.default};
 
-    &:hover {
+    &:not(:disabled):hover {
       color: ${theme.colors.primary};
     }
 
     &.active {
       color: ${theme.colors.primary};
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
   `}
 `;

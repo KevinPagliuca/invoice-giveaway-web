@@ -23,7 +23,7 @@ export const Participation = () => {
             <p>
               <strong>Pronto!</strong>
               <br />
-              Você já está concorrendo com o seu número da sorte gerado
+              Você já está concorrendo com o seu código da sorte gerado
             </p>
           </S.ParticipationItem>
         </S.ParticipationContent>

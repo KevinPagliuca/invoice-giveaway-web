@@ -6,7 +6,23 @@ import { type IInputProps } from './Input.interfaces';
 import * as S from './Input.styles';
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>(
-  ({ name, label, error, mask, placeholder = ' ', withShowPassword, type, ...rest }, ref) => {
+  (
+    {
+      name,
+      label,
+      error,
+      mask,
+      placeholder = ' ',
+      withShowPassword,
+      value,
+      onChange,
+      onValueChange,
+      currency,
+      type,
+      ...rest
+    },
+    ref
+  ) => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const inputMaskRef = useRef<ReactInputMask | null>(null);
     const [showPassword, setShowPassword] = useState(false);
@@ -48,8 +64,23 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
     return (
       <S.InputWrapper>
         <S.InputContainer hasError={hasError} onClick={handleFocusInput}>
-          {mask ? (
+          {currency && (
+            <S.InputFieldCurrency
+              id={name}
+              name={name}
+              intlConfig={{ locale: 'pt-BR', currency: 'BRL' }}
+              decimalsLimit={2}
+              maxLength={value?.toString().includes(',') ? 13 : 9}
+              value={value}
+              onValueChange={onValueChange}
+              placeholder={placeholder}
+              ref={inputRefCallback}
+            />
+          )}
+
+          {mask && !currency && (
             <S.InputFieldMasked
+              {...rest}
               id={name}
               name={name}
               type={inputType}
@@ -58,10 +89,12 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
               mask={mask}
               placeholder={placeholder}
               maskChar={null}
+              value={value}
+              onChange={onChange}
               className={hasPlaceholder ? `${rest?.className} hasPlaceholder` : rest?.className}
-              {...rest}
             />
-          ) : (
+          )}
+          {!mask && !currency && (
             <S.InputField
               id={name}
               name={name}
@@ -69,9 +102,12 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
               ref={inputRefCallback}
               placeholder={placeholder}
               hasPlaceholder={hasPlaceholder}
+              value={value}
+              onChange={onChange}
               {...rest}
             />
           )}
+
           {label && (
             <Fragment>
               <S.InputLabel hasPlaceholder={hasPlaceholder} onClick={handleFocusInput}>

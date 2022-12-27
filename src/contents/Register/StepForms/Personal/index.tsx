@@ -43,14 +43,12 @@ export const Personal = ({
             key={field.name}
             control={control}
             name={field.complexName}
-            render={({ field: { onChange, value } }) => {
+            render={({ field: hookFormField }) => {
               return (
                 <S.StepInputWrapper>
                   <Input
-                    name={field.complexName}
+                    {...hookFormField}
                     label={field.label}
-                    onChange={onChange}
-                    value={value}
                     type={field.type}
                     mask={field.mask}
                     placeholder={field.placeholder}

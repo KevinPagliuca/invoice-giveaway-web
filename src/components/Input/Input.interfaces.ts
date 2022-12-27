@@ -6,7 +6,17 @@ export interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: FieldError;
   mask?: string | Array<string | RegExp>;
+  currency?: boolean;
   withShowPassword?: boolean;
+  onValueChange?: (
+    value: string | undefined,
+    name?: string,
+    values?: {
+      float: number | null;
+      formatted: string;
+      value: string;
+    }
+  ) => void;
 }
 
 export type InputContainerAttributes = {

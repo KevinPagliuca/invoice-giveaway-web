@@ -13,9 +13,9 @@ type Field = {
 };
 
 export const ADDRESS_FIELDS: Record<keyof RegisterFormData['address'], Field> = {
-  cep: {
-    name: 'cep',
-    complexName: 'address.cep',
+  zipCode: {
+    name: 'zipCode',
+    complexName: 'address.zipCode',
     label: 'CEP',
     type: 'text',
     mask: '99999-999',

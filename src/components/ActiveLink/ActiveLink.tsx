@@ -4,13 +4,30 @@ import React from 'react';
 
 import { type IActiveLinkProps } from './ActiveLink.interfaces';
 
-export const ActiveLink = ({ href, activeClassName, children }: IActiveLinkProps) => {
-  const router = useRouter();
-  const className = router.pathname === href ? activeClassName : null;
+export const ActiveLink = ({
+  activeClassName,
+  shouldMatchExactHref = false,
+  children,
+  ...rest
+}: IActiveLinkProps) => {
+  let isActive = false;
+
+  const { asPath } = useRouter();
+
+  if (shouldMatchExactHref && (asPath === rest.href || asPath === rest.as)) {
+    isActive = true;
+  }
+
+  if (
+    !shouldMatchExactHref &&
+    (asPath.startsWith(String(rest.href)) || asPath.startsWith(String(rest.as)))
+  ) {
+    isActive = true;
+  }
 
   return (
-    <Link href={href} passHref>
-      {React.cloneElement(children, { className })}
+    <Link {...rest}>
+      {React.cloneElement(children, { className: isActive ? activeClassName : undefined })}
     </Link>
   );
 };

@@ -7,10 +7,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { type LoginFormData, LoginFormSchema } from 'shared/LoginForm';
 import { Button } from 'components/Button';
 import { Background } from 'contents/CommonLoginRegister';
+import { useAuth } from 'contexts/Auth';
 
 import * as S from './Login.styles';
 
 export const LoginContent = () => {
+  const { handleLogin } = useAuth();
+
   const {
     control,
     formState: { errors, isSubmitting },
@@ -21,8 +24,9 @@ export const LoginContent = () => {
   });
 
   const onSubmit = useCallback(
-    // eslint-disable-next-line no-console
-    handleSubmit((data) => console.log(data)),
+    handleSubmit(async (data) => {
+      await handleLogin(data);
+    }),
     []
   );
 

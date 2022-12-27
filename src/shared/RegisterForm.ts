@@ -1,3 +1,4 @@
+import { formatFormDate } from 'helpers/formatters';
 import { z } from 'zod';
 
 import { CPFRegex, CEPRegex, PhoneRegex, DateRegex } from './RegExp';
@@ -27,7 +28,8 @@ const RegisterPersonalSchema = z.object({
     .regex(DateRegex, 'Data inválida')
     .refine((value) => value.length > 0, {
       message: 'O campo é obrigatório',
-    }),
+    })
+    .transform(formatFormDate),
   rg: z.string({}).optional(),
 });
 
@@ -40,7 +42,7 @@ const RegisterContactSchema = z.object({
 });
 
 const RegisterAddressSchema = z.object({
-  cep: z
+  zipCode: z
     .string({
       required_error: 'O CEP é obrigatório',
     })

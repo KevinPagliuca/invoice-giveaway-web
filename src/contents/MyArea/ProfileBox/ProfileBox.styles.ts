@@ -28,6 +28,7 @@ export const ProfileBoxContainer = styled.div`
     gap: ${theme.spacings.md};
     max-width: 20rem;
     width: 100%;
+    height: fit-content;
 
     position: sticky;
     top: calc(${theme.sizes.headerHeight} + ${theme.spacings.xl});

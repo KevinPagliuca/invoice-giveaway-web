@@ -1,26 +1,20 @@
 import { type ImgHTMLAttributes } from 'react';
 
-type AvatarPropsWithName = {
-  src?: string;
-  name: string;
-  maxInitials?: number;
-} & React.HTMLAttributes<HTMLSpanElement>;
-
-type MyAvatarWithSrc = {
-  src: string;
-  name?: string;
-  maxInitials?: number;
-} & ImgHTMLAttributes<HTMLImageElement>;
-
-type AvatarAllProps = AvatarPropsWithName | MyAvatarWithSrc;
-
-export type IAvatarProps = {
+type AvatarProps = {
   size?: 'small' | 'medium' | 'large';
   round?: boolean;
-  name?: string;
-  src?: string;
   maxInitials?: number;
-} & AvatarAllProps;
+};
+
+type AvatarConditionalProps =
+  | ({
+      src: string;
+    } & ImgHTMLAttributes<HTMLImageElement>)
+  | ({
+      name: string;
+    } & React.HTMLAttributes<HTMLSpanElement>);
+
+export type IAvatarProps = AvatarConditionalProps & AvatarProps;
 
 export type AvatarAttributes = {
   size?: string;

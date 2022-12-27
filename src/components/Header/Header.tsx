@@ -2,6 +2,7 @@ import React, { type MouseEvent, useCallback, useState } from 'react';
 
 import { ActiveLink } from 'components/ActiveLink/ActiveLink';
 import { Logo } from 'components/Logo';
+import { useAuth } from 'contexts/Auth';
 
 import * as S from './Header.styles';
 
@@ -10,10 +11,11 @@ const headerLinks = [
     label: 'Home',
     href: '/',
     isPrivate: false,
+    exact: true,
   },
   {
-    label: 'Dashboard',
-    href: '/dashboard',
+    label: 'Minha área',
+    href: '/minha-area',
     isPrivate: true,
   },
   {
@@ -21,11 +23,13 @@ const headerLinks = [
     href: '/sobre-nos',
     isPrivate: false,
     onlyUnauthenticated: true,
+    disabled: true,
   },
   {
     label: 'Ranking',
     href: '/ranking',
     isPrivate: true,
+    disabled: true,
   },
 
   {
@@ -34,10 +38,16 @@ const headerLinks = [
     isPrivate: false,
     onlyUnauthenticated: true,
   },
+  {
+    label: 'Registro',
+    href: '/cadastro',
+    isPrivate: false,
+    onlyUnauthenticated: true,
+  },
 ];
 
 export const Header = () => {
-  const isAuth = false;
+  const { isAuthenticated, handleLogout } = useAuth();
   const [hoveredLink, setHoveredLink] = useState({ offset: 0, width: 0 });
 
   const handleMouseEnter = useCallback(
@@ -60,15 +70,37 @@ export const Header = () => {
         <Logo size="small" />
         <S.HeaderNavWrapper offset={hoveredLink.offset} width={hoveredLink.width}>
           {headerLinks.map((link) => {
-            if ((link.isPrivate && !isAuth) || (link.onlyUnauthenticated && isAuth)) return null;
+            if (
+              (link.isPrivate && !isAuthenticated) ||
+              (link.onlyUnauthenticated && isAuthenticated)
+            )
+              return null;
             return (
-              <ActiveLink activeClassName="active" key={link.label} href={link.href}>
-                <S.HeaderLink onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+              <ActiveLink
+                activeClassName="active"
+                key={link.label}
+                href={link.href}
+                shouldMatchExactHref={link?.exact}
+              >
+                <S.HeaderLink
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  disabled={link?.disabled}
+                >
                   {link.label}
                 </S.HeaderLink>
               </ActiveLink>
             );
           })}
+          {isAuthenticated && (
+            <S.HeaderLink
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onClick={handleLogout}
+            >
+              Sair
+            </S.HeaderLink>
+          )}
         </S.HeaderNavWrapper>
       </S.HeaderContent>
     </S.HeaderContainer>
