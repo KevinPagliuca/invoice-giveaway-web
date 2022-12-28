@@ -23,7 +23,15 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             <AuthProvider>
               <GlobalStyles />
               <Component {...pageProps} />
-              <ToastContainer theme="dark" />
+              <ToastContainer
+                theme="light"
+                position="top-center"
+                toastStyle={{
+                  fontFamily: theme.fonts.primary,
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                }}
+              />
             </AuthProvider>
           </LoaderProvider>
         </ThemeProvider>

@@ -27,3 +27,8 @@ export interface IAuthResponse {
   user: IUser;
   token: string;
 }
+
+export interface IRecoverPassResponse {
+  message: string;
+  email: string;
+}

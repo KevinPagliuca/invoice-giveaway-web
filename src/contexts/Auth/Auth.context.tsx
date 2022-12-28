@@ -5,8 +5,8 @@ import { toast } from 'react-toastify';
 import { type IUserLoginCredentials } from 'interfaces/users';
 import { usersService } from 'services/users';
 import { useMe } from 'hooks/users';
-import { type RegisterFormData } from 'shared/RegisterForm';
-import { type EditProfileFormData } from 'shared/UpdateProfileForm';
+import { type RegisterFormData } from 'shared/forms/RegisterForm';
+import { type EditProfileFormData } from 'shared/forms/UpdateProfileForm';
 
 import { type IAuthProviderProps, type IAuthContextData } from './Auth.interfaces';
 

@@ -1,9 +1,13 @@
-import { type GetServerSideProps, type GetServerSidePropsContext } from 'next';
+import {
+  type GetServerSidePropsResult,
+  type GetServerSideProps,
+  type GetServerSidePropsContext,
+} from 'next';
 
 import { getActiveToken } from 'services/api';
 
 export function withSSRPublic<P extends object>(fn?: GetServerSideProps<P>) {
-  return async (ctx: GetServerSidePropsContext) => {
+  return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
     const token = getActiveToken(ctx);
 
     if (token) {
@@ -14,11 +18,10 @@ export function withSSRPublic<P extends object>(fn?: GetServerSideProps<P>) {
         },
       };
     }
-
     if (fn) return await fn(ctx);
 
     return {
-      props: {},
+      props: {} as P,
     };
   };
 }

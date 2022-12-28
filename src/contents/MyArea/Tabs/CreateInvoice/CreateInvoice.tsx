@@ -4,10 +4,13 @@ import { useRouter } from 'next/router';
 
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { type CreateInvoiceFormData, CreateInvoiceFormSchema } from 'shared/CreateInvoice';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { InvoiceNote } from 'components/InvoiceNote';
 import { useCreateInvoice } from 'hooks/invoices';
+import {
+  CreateInvoiceFormSchema,
+  type CreateInvoiceFormData,
+} from 'shared/forms/CreateInvoiceForm';
 
 import * as S from './CreateInvoice.styles';
 import { NEW_INVOICE_FORM_FIELDS } from './helpers';

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { type RegisterFormData } from 'shared/RegisterForm';
+import { type RegisterFormData } from 'shared/forms/RegisterForm';
 import { useAuth } from 'contexts/Auth';
 import { type RegisterStepsKeys } from 'constants/global';
 

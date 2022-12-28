@@ -1,25 +1,23 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FiX } from 'react-icons/fi';
 
 import { Modal } from 'components/Modal';
-import { Stepper } from 'components/Stepper';
-import { UPDATE_USER_PROFILE_STEPS } from 'constants/global';
-import { type EditProfileFormData, EditProfileFormSchema } from 'shared/UpdateProfileForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from 'contexts/Auth';
 import { formatDate } from 'helpers/formatters';
+import { UpdateProfileFormSchema, type EditProfileFormData } from 'shared/forms/UpdateProfileForm';
 
 import { type IModalEditProfileProps } from './ModalEditProfile.interfaces';
 import * as S from './ModalEditProfile.styles';
-import { StepForms } from './StepForms';
+import { EditProfileForm } from './EditProfileForm';
 
 export const ModalEditProfile = ({ onOpenChange, open: isOpen }: IModalEditProfileProps) => {
   const { user, handleUpdate } = useAuth();
 
   const methods = useForm<EditProfileFormData>({
     mode: 'onChange',
-    resolver: zodResolver(EditProfileFormSchema),
+    resolver: zodResolver(UpdateProfileFormSchema),
     defaultValues: {
       personal: {
         name: user?.name,
@@ -42,20 +40,6 @@ export const ModalEditProfile = ({ onOpenChange, open: isOpen }: IModalEditProfi
       },
     },
   });
-
-  const [currentStep, setCurrentStep] = useState(UPDATE_USER_PROFILE_STEPS[0].number);
-  const [activeStep, setActiveStep] = useState(UPDATE_USER_PROFILE_STEPS[0].number);
-
-  const onChangeActiveStep = useCallback((number: number) => {
-    setActiveStep(number);
-  }, []);
-
-  const onChangeCurrentStep = useCallback((number: number) => {
-    setCurrentStep(number);
-  }, []);
-
-  const errors = methods.formState?.errors;
-  const hasErrors = errors && Object.keys(errors).length > 0;
 
   const onSubmit = useCallback(
     methods.handleSubmit(async (data) => {
@@ -98,24 +82,8 @@ export const ModalEditProfile = ({ onOpenChange, open: isOpen }: IModalEditProfi
             </S.ModalHeader>
 
             <S.ModalBody>
-              <Stepper
-                currentStep={currentStep}
-                activeStep={activeStep}
-                onChangeActiveStep={onChangeActiveStep}
-                steps={UPDATE_USER_PROFILE_STEPS}
-                disableChangeStep={hasErrors}
-                enableNavigation
-              />
-
-              <S.Form>
-                <StepForms
-                  steps={UPDATE_USER_PROFILE_STEPS}
-                  activeStep={activeStep}
-                  currentStep={currentStep}
-                  onChangeCurrentStep={onChangeCurrentStep}
-                  onChangeActiveStep={onChangeActiveStep}
-                  onSubmit={onSubmit}
-                />
+              <S.Form onSubmit={onSubmit}>
+                <EditProfileForm />
               </S.Form>
             </S.ModalBody>
           </S.ModalContent>

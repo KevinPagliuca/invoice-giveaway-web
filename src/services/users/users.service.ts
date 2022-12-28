@@ -1,13 +1,14 @@
 import { type GetServerSidePropsContext } from 'next';
 
-import { type IUser, type IAuthResponse } from 'interfaces/users';
+import { type IUser, type IAuthResponse, type IRecoverPassResponse } from 'interfaces/users';
 import { api, removeAuth, setAuth, setupAPI } from 'services/api';
-import { type LoginFormData } from 'shared/LoginForm';
-import { type RegisterFormData } from 'shared/RegisterForm';
+import { type RegisterFormData } from 'shared/forms/RegisterForm';
 import { type AxiosErrorType } from 'interfaces/axios';
 import { queryClient } from 'services/react-query';
 import { REACT_QUERY_KEYS } from 'constants/react-query';
-import { type EditProfileFormData } from 'shared/UpdateProfileForm';
+import { type LoginFormData } from 'shared/forms/LoginForm';
+import { type EditProfileFormData } from 'shared/forms/UpdateProfileForm';
+import { type RecoverPassFormData } from 'shared/forms/RecoverPassForm';
 
 async function getMe(ctx?: GetServerSidePropsContext) {
   try {
@@ -80,10 +81,36 @@ async function update(user: EditProfileFormData) {
   }
 }
 
+async function recoverPass(cpf: string) {
+  try {
+    const { data } = await api.post<IRecoverPassResponse>('/user/recover-password', { cpf });
+    return data;
+  } catch (err) {
+    const error = err as AxiosErrorType;
+    const errorMessage =
+      error.response?.data?.message || 'Ocorreu um erro inesperado, tente novamente mais tarde.';
+    throw new Error(errorMessage);
+  }
+}
+
+async function resetPass(data: RecoverPassFormData) {
+  try {
+    const payload = { ...data.newPassword, ...data.recoverPass };
+    await api.post('/user/reset-password', payload);
+  } catch (err) {
+    const error = err as AxiosErrorType;
+    const errorMessage =
+      error.response?.data?.message || 'Ocorreu um erro inesperado, tente novamente mais tarde.';
+    throw new Error(errorMessage);
+  }
+}
+
 export const usersService = {
   getMe,
   auth,
   register,
   logout,
   update,
+  recoverPass,
+  resetPass,
 };

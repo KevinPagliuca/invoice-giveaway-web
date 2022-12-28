@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
-import { type RegisterFormData } from 'shared/RegisterForm';
+import { type RegisterFormData } from 'shared/forms/RegisterForm';
 import { type RegisterStepsKeys } from 'constants/global';
 
 import { PASSWORD_DATA_FIELDS as fields } from './fields';

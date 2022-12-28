@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 import { Input } from 'components/Input';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { type LoginFormData, LoginFormSchema } from 'shared/LoginForm';
 import { Button } from 'components/Button';
 import { Background } from 'contents/CommonLoginRegister';
 import { useAuth } from 'contexts/Auth';
+import { type LoginFormData, LoginFormSchema } from 'shared/forms/LoginForm';
 
 import * as S from './Login.styles';
 
@@ -62,12 +62,13 @@ export const LoginContent = () => {
                 />
               )}
             />
-            <Button type="submit" disabled={hasErrors || isSubmitting}>
+            <S.ForgotPasswordLink href="/recuperar-senha">Esqueci minha senha</S.ForgotPasswordLink>
+            <Button type="submit" disabled={hasErrors} isLoading={isSubmitting}>
               Entrar
             </Button>
           </S.LoginForm>
           <S.SignUpText>
-            Não tem uma conta ainda ?<Link href="/cadastro"> Cadastre-se</Link>
+            Não tem uma conta ainda ?<Link href="/cadastro">Cadastre-se</Link>
           </S.SignUpText>
         </S.LoginContent>
       </Background>

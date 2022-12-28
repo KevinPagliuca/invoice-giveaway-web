@@ -1,7 +1,7 @@
 import { formatFormDate } from 'helpers/formatters';
 import { z } from 'zod';
 
-import { CNPJRegex, DateRegex } from './RegExp';
+import { CNPJRegex, DateRegex } from '../RegExp';
 
 export type CreateInvoiceFormData = z.infer<typeof CreateInvoiceFormSchema>;
 export const CreateInvoiceFormSchema = z.object({

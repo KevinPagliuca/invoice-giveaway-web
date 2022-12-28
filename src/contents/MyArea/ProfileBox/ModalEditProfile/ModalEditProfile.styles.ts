@@ -65,13 +65,12 @@ export const ModalBody = styled.div`
   flex-direction: column;
 `;
 
-export const Form = styled.div`
+export const Form = styled.form`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: ${theme.spacings.md};
     width: 100%;
-    margin: ${theme.spacings.lg} 0;
   `}
 `;

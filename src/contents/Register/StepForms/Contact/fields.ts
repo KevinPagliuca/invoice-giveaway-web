@@ -1,5 +1,5 @@
 import { type ObjectPathType } from 'helpers';
-import { type RegisterFormData } from 'shared/RegisterForm';
+import { type RegisterFormData } from 'shared/forms/RegisterForm';
 
 type Field = {
   name: keyof RegisterFormData['contact'];

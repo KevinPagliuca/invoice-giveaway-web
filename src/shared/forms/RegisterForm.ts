@@ -1,7 +1,7 @@
 import { formatFormDate } from 'helpers/formatters';
 import { z } from 'zod';
 
-import { CEPRegex, PhoneRegex, DateRegex } from './RegExp';
+import { CPFRegex, CEPRegex, PhoneRegex, DateRegex } from '../RegExp';
 
 const getStringValidation = (message: string) => {
   return z
@@ -13,7 +13,13 @@ const getStringValidation = (message: string) => {
     });
 };
 
-const EditProfilePersonalSchema = z.object({
+const RegisterPersonalSchema = z.object({
+  cpf: z
+    .string({
+      required_error: 'O CPF é obrigatório',
+      description: 'CPF',
+    })
+    .regex(CPFRegex, 'CPF inválido'),
   name: getStringValidation('O nome é obrigatório'),
   birthDate: z
     .string({
@@ -27,7 +33,7 @@ const EditProfilePersonalSchema = z.object({
   rg: z.string({}).optional(),
 });
 
-const EditProfileContactSchema = z.object({
+const RegisterContactSchema = z.object({
   email: z.string({ required_error: 'O e-mail é obrigatório' }).email('E-mail inválido'),
   mainPhone: z
     .string({ required_error: 'O telefone é obrigatório' })
@@ -35,7 +41,7 @@ const EditProfileContactSchema = z.object({
   secondaryPhone: z.string().optional(),
 });
 
-const EditProfileAddressSchema = z.object({
+const RegisterAddressSchema = z.object({
   zipCode: z
     .string({
       required_error: 'O CEP é obrigatório',
@@ -49,10 +55,25 @@ const EditProfileAddressSchema = z.object({
   complement: z.string().optional(),
 });
 
-export const EditProfileFormSchema = z.object({
-  personal: EditProfilePersonalSchema,
-  contact: EditProfileContactSchema,
-  address: EditProfileAddressSchema,
+const RegisterPasswordDataSchema = z
+  .object({
+    password: z
+      .string({ required_error: 'A senha é obrigatória' })
+      .min(6, 'Senha deve ter no mínimo 6 caracteres'),
+    confirmation: z
+      .string({ required_error: 'A confirmação de senha é obrigatória' })
+      .min(6, 'Senha deve ter no mínimo 6 caracteres'),
+  })
+  .refine((data) => data.password === data.confirmation, {
+    message: 'As senhas não conferem',
+    path: ['confirmation'],
+  });
+
+export const RegisterFormSchema = z.object({
+  personal: RegisterPersonalSchema,
+  contact: RegisterContactSchema,
+  address: RegisterAddressSchema,
+  password: RegisterPasswordDataSchema,
 });
 
-export type EditProfileFormData = z.infer<typeof EditProfileFormSchema>;
+export type RegisterFormData = z.infer<typeof RegisterFormSchema>;

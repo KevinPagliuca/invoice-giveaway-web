@@ -1,19 +1,5 @@
 import styled, { css } from 'styled-components';
 
-export const EditProfileButton = styled.button`
-  ${({ theme }) => css`
-    background-color: transparent;
-    color: ${theme.colors.primary};
-    border: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: ${theme.spacings.xl};
-    right: ${theme.spacings.xl};
-  `}
-`;
-
 export const ProfileBoxContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
@@ -25,8 +11,7 @@ export const ProfileBoxContainer = styled.div`
 
     padding: ${theme.spacings.xl};
     gap: ${theme.spacings.md};
-    max-width: 20rem;
-    width: 100%;
+    min-width: 20rem;
     height: fit-content;
 
     position: sticky;

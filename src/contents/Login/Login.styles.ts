@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { rgba } from 'polished';
 import styled, { css } from 'styled-components';
 import { generateUnderlineHoverAnimation } from 'styles/animations';
@@ -42,6 +44,23 @@ export const LoginForm = styled.form`
     justify-content: center;
     gap: ${theme.spacings.md};
     width: 100%;
+  `}
+`;
+
+export const ForgotPasswordLink = styled(Link)`
+  ${({ theme }) => css`
+    color: ${theme.colors.paragraph};
+    font-size: 1rem;
+    line-height: 1.4;
+    width: fit-content;
+    margin-left: auto;
+    transition: ${theme.transitions.slow};
+
+    &:hover {
+      color: ${theme.colors.primary};
+    }
+
+    ${generateUnderlineHoverAnimation(theme.colors.primary)};
   `}
 `;
 

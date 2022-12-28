@@ -8,7 +8,7 @@ export function withLayout<T extends object>(Component: React.FC<T>, title?: str
     return (
       <DefaultLayout>
         <Head>
-          <title>{title || 'Towty'}</title>
+          <title>{title || 'Sorteio de notas fiscais!'}</title>
         </Head>
         <Component {...props} />
       </DefaultLayout>

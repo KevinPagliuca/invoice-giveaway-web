@@ -1,4 +1,9 @@
-import { type GetServerSidePropsTyped, type GetServerSidePropsContext } from 'next';
+import {
+  type GetServerSidePropsTyped,
+  type GetServerSidePropsContext,
+  type GetServerSidePropsResult,
+  type ResultDehydratedState,
+} from 'next';
 
 import { dehydrate } from '@tanstack/react-query';
 import { REACT_QUERY_KEYS } from 'constants/react-query';
@@ -16,8 +21,10 @@ function removeAuthAndRedirect(ctx: GetServerSidePropsContext) {
   };
 }
 
-export function withSSRAuth<P extends Record<string, unknown>>(fn?: GetServerSidePropsTyped<P>) {
-  return async (ctx: GetServerSidePropsContext) => {
+export function withSSRAuth<P extends Record<string, unknown> & ResultDehydratedState>(
+  fn?: GetServerSidePropsTyped<P>
+) {
+  return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
     try {
       const token = getActiveToken(ctx);
       if (!token) return removeAuthAndRedirect(ctx);
@@ -43,7 +50,7 @@ export function withSSRAuth<P extends Record<string, unknown>>(fn?: GetServerSid
 
       if (fn) return await fn(ctx, SSRProps);
       return {
-        props: SSRProps,
+        props: SSRProps as P,
       };
     } catch (err) {
       return removeAuthAndRedirect(ctx);

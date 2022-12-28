@@ -1,4 +1,4 @@
-import { type CreateInvoiceFormData } from 'shared/CreateInvoice';
+import { type CreateInvoiceFormData } from 'shared/forms/CreateInvoiceForm';
 
 type Field = {
   name: keyof CreateInvoiceFormData;

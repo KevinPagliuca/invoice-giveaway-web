@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { Stepper } from 'components/Stepper';
-import { RegisterFormSchema, type RegisterFormData } from 'shared/RegisterForm';
+import { RegisterFormSchema, type RegisterFormData } from 'shared/forms/RegisterForm';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Background } from 'contents/CommonLoginRegister';
 import { REGISTER_STEPS } from 'constants/global';

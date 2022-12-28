@@ -1,7 +1,7 @@
 import { type AxiosErrorType } from 'interfaces/axios';
 import { type IInvoice } from 'interfaces/invoices';
 import { api } from 'services/api';
-import { type CreateInvoiceFormData } from 'shared/CreateInvoice';
+import { type CreateInvoiceFormData } from 'shared/forms/CreateInvoiceForm';
 
 export async function getMine() {
   try {

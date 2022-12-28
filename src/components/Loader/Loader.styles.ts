@@ -35,7 +35,7 @@ export const LoaderContainer = styled.div<LoaderContainerAttributes>`
     circle {
       fill: none;
       stroke: ${theme.colors.background};
-      stroke-width: 2;
+      stroke-width: 4;
       stroke-dasharray: 1, 200;
       stroke-dashoffset: 0;
       stroke-linecap: round;

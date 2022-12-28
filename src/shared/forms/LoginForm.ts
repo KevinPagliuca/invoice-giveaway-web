@@ -1,6 +1,5 @@
+import { CPFRegex } from 'shared/RegExp';
 import { z } from 'zod';
-
-import { CPFRegex } from './RegExp';
 
 export type LoginFormData = z.infer<typeof LoginFormSchema>;
 export const LoginFormSchema = z.object({

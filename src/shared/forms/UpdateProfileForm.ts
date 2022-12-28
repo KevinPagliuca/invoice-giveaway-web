@@ -1,7 +1,7 @@
 import { formatFormDate } from 'helpers/formatters';
 import { z } from 'zod';
 
-import { CPFRegex, CEPRegex, PhoneRegex, DateRegex } from './RegExp';
+import { CEPRegex, PhoneRegex, DateRegex } from '../RegExp';
 
 const getStringValidation = (message: string) => {
   return z
@@ -13,13 +13,7 @@ const getStringValidation = (message: string) => {
     });
 };
 
-const RegisterPersonalSchema = z.object({
-  cpf: z
-    .string({
-      required_error: 'O CPF é obrigatório',
-      description: 'CPF',
-    })
-    .regex(CPFRegex, 'CPF inválido'),
+const UpdateProfilePersonalSchema = z.object({
   name: getStringValidation('O nome é obrigatório'),
   birthDate: z
     .string({
@@ -33,7 +27,7 @@ const RegisterPersonalSchema = z.object({
   rg: z.string({}).optional(),
 });
 
-const RegisterContactSchema = z.object({
+const UpdateProfileContactSchema = z.object({
   email: z.string({ required_error: 'O e-mail é obrigatório' }).email('E-mail inválido'),
   mainPhone: z
     .string({ required_error: 'O telefone é obrigatório' })
@@ -41,7 +35,7 @@ const RegisterContactSchema = z.object({
   secondaryPhone: z.string().optional(),
 });
 
-const RegisterAddressSchema = z.object({
+const UpdateProfileAddressSchema = z.object({
   zipCode: z
     .string({
       required_error: 'O CEP é obrigatório',
@@ -55,25 +49,10 @@ const RegisterAddressSchema = z.object({
   complement: z.string().optional(),
 });
 
-const RegisterPasswordDataSchema = z
-  .object({
-    password: z
-      .string({ required_error: 'A senha é obrigatória' })
-      .min(6, 'Senha deve ter no mínimo 6 caracteres'),
-    confirmation: z
-      .string({ required_error: 'A confirmação de senha é obrigatória' })
-      .min(6, 'Senha deve ter no mínimo 6 caracteres'),
-  })
-  .refine((data) => data.password === data.confirmation, {
-    message: 'As senhas não conferem',
-    path: ['confirmation'],
-  });
-
-export const RegisterFormSchema = z.object({
-  personal: RegisterPersonalSchema,
-  contact: RegisterContactSchema,
-  address: RegisterAddressSchema,
-  password: RegisterPasswordDataSchema,
+export const UpdateProfileFormSchema = z.object({
+  personal: UpdateProfilePersonalSchema,
+  contact: UpdateProfileContactSchema,
+  address: UpdateProfileAddressSchema,
 });
 
-export type RegisterFormData = z.infer<typeof RegisterFormSchema>;
+export type EditProfileFormData = z.infer<typeof UpdateProfileFormSchema>;
