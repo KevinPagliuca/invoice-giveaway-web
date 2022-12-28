@@ -74,7 +74,7 @@ export const Address = ({
           disabled={isSubmitting || hasErrors}
           onClick={onSubmit}
         >
-          {showFinishButton ? 'Finalizar' : showSaveButton ? 'Salvar' : 'Avançar'}
+          {showSaveButton ? 'Salvar' : 'Avançar'}
         </Button>
       </S.StepButtonWrapper>
     </>

@@ -16,7 +16,6 @@ export const Password = ({
   handlePreviousStep,
   disableBackButton,
   showBackButton,
-  showSaveButton,
   showFinishButton,
 }: IFormComponentProps) => {
   const {
@@ -67,9 +66,10 @@ export const Password = ({
         <Button
           type={showFinishButton ? 'submit' : 'button'}
           fullWidth
-          disabled={isSubmitting || hasErrors}
+          disabled={hasErrors}
+          isLoading={isSubmitting}
         >
-          {showFinishButton ? 'Finalizar' : showSaveButton ? 'Salvar' : 'Avançar'}
+          {showFinishButton ? 'Finalizar' : 'Salvar'}
         </Button>
       </S.StepButtonWrapper>
     </>

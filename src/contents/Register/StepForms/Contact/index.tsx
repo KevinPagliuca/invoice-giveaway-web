@@ -17,7 +17,6 @@ export const Contact = ({
   handlePreviousStep,
   disableBackButton,
   showBackButton,
-  showFinishButton,
   showSaveButton,
 }: IFormComponentProps) => {
   const {
@@ -70,12 +69,13 @@ export const Contact = ({
           </Button>
         )}
         <Button
-          type={showFinishButton ? 'submit' : 'button'}
+          type={'button'}
           fullWidth
-          disabled={isSubmitting || hasErrors}
+          disabled={hasErrors}
+          isLoading={isSubmitting}
           onClick={onSubmit}
         >
-          {showFinishButton ? 'Finalizar' : showSaveButton ? 'Salvar' : 'Avançar'}
+          {showSaveButton ? 'Salvar' : 'Avançar'}
         </Button>
       </S.StepButtonWrapper>
     </>

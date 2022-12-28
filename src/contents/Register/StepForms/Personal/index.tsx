@@ -18,7 +18,6 @@ export const Personal = ({
   disableBackButton,
   showBackButton,
   showSaveButton,
-  showFinishButton,
 }: IFormComponentProps) => {
   const {
     control,
@@ -69,12 +68,13 @@ export const Personal = ({
           </Button>
         )}
         <Button
-          type={showFinishButton ? 'submit' : 'button'}
+          type="button"
           fullWidth
-          disabled={isSubmitting || hasErrors}
+          disabled={hasErrors}
+          isLoading={isSubmitting}
           onClick={onSubmit}
         >
-          {showFinishButton ? 'Finalizar' : showSaveButton ? 'Salvar' : 'Avançar'}
+          {showSaveButton ? 'Salvar' : 'Avançar'}
         </Button>
       </S.StepButtonWrapper>
     </>

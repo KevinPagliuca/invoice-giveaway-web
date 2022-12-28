@@ -13,7 +13,6 @@ export const Button = ({ children, isLoading, disabled, ...props }: IButtonProps
       ) : (
         children
       )}
-      <span className="fakeSpacer" />
     </S.Button>
   );
 };
